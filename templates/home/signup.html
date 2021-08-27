@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block title  %} home {% endblock title %}
+{% block signupactive %} active {% endblock signupactive %}
+
+{% block body %}
+<div class="container my-3">
+<h3>Sign-Up</h3>
+<form action="/contact" method="POST">
+    {% csrf_token %}
+    <div class="mb-3">
+    <label for="name" class="form-label">Full Name</label>
+    <input type="text" class="form-control" id="name" name="name" aria-describedby="name" placeholder="enter your full name">
+    <div id="name" class="form-text"></div>
+  </div>
+  <div class="mb-3">
+    <label for="email" class="form-label">Email address</label>
+    <input type="Email" class="form-control" id="email" name ="email" aria-describedby="emailHelp" placeholder="enter your mail address">
+    <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+  </div>
+  <div class="mb-3">
+    <label for="roll" class="form-label">Mobile Number</label>
+    <input type="roll" class="form-control" id="roll" name="roll" placeholder="enter your Mobile Number">
+  </div>
+  <div class="mb-3">
+    <label for="semester" class="form-label">Country</label>
+    <input type="semester" class="form-control" id="semester" name="semester" placeholder="enter your country name">
+  </div>
+   <div class="mb-3">
+    <label for="pass1" class="form-label">Create Password</label>
+    <input type="password" class="form-control" id="pass1" name="pass1" placeholder="enter your password">
+  </div>
+   <div class="mb-3">
+    <label for="pass2" class="form-label">Confirm Password</label>
+    <input type="password" class="form-control" id="pass2" name="pass2" placeholder="confirm your password">
+  </div>
+  
+  
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+</div>
+{% endblock body %}

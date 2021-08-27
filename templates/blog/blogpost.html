@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% block title %} Blogpost{% endblock title %}
+{% block body %}
+{% load humanize %}
+<div class="container my-3">
+    <h2 class="blog-post-title">{{post.title}}</h2>
+    <br>
+    <p class="blog-post-meta" style="color:blue;">{{post.timeStamp}} by <a href="/about">{{post.author}}</a></p>
+    <br>
+    <p>{{post.content}}</p>
+    <hr>
+</div>
+<div class="container">
+    <h2> Comments ({{comments.count}})</h2>
+    <div class="my-2">
+        {% if user.is_authenticated %}
+        <form action="/blog/postComment" method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="exampleInputEmail1">Post Comment </label>
+                <input type="text" class="form-control" name="comment" placeholder="Enter comment here">
+            </div>
+            <input type="hidden" name="postSno" value="{{post.sno}}">
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+        {% else %}
+        Please login to post a comment
+        {% endif %}
+
+
+    </div>
+    {% for comment in comments %}
+    <div class="row my-3">
+        <div class="col-md-1  ">
+            {% comment %} <img class="rounded mx-auto d-block w-100 border border-dark p-2" src="/static/img/user.png"
+                width='10' height="10" alt="user"> {% endcomment %}
+        </div>
+        <div class="col-md-11 ">
+            <b> {{comment.user.username}} </b> <span class="badge badge-secondary "> {{comment.timestamp}} </span>
+            <div> {{comment.comment}} </div>
+           <!--  <div class="reply mx-0">
+                <p>
+
+                    <button class="btn btn-primary" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                        Reply
+                    </button>
+                </p>
+                <div class="collapse" id="collapseExample">
+                    <div class="card card-body">
+                        Some placeholder content for the collapse component. This panel is hidden by default but
+                        revealed when the user activates the relevant trigger.
+                    </div>
+                </div>
+            </div> -->
+        </div>
+    </div>
+    {% endfor %}
+    <a type="button" class="btn btn-primary btn-sm mr-2 float-right" href="/blog">
+        Back
+    </a>
+    <br>
+    <br>
+
+</div>
+<br>
+<br>
+{% endblock %}
